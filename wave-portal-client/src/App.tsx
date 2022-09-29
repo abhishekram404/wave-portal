@@ -1,7 +1,6 @@
-import { useState } from "react";
 import "app/styles/App.css";
-import WaveCard from "app/components/WaveCard";
-import ProfileSection from "app/components/ProfileSection";
+import WaveCard from "./app/components/WaveCard";
+import ProfileSection from "./app/components/ProfileSection";
 function App() {
   return (
     <div className="App bg-background min-h-screen flex flex-col sm:grid sm:grid-cols-12 lg:gap-6 gap-4 p-5 xl:p-10">
