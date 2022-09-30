@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import abi from "../utils/WavePortal.json";
+import React, { useContext, useState } from "react";
 import { ethers } from "ethers";
+import AppContext from "../context/AppContext";
 type Props = {};
 interface IWindow {
   ethereum: any;
@@ -8,8 +8,8 @@ interface IWindow {
 
 const ProfileSection = ({}: Props) => {
   const [isMining, setMining] = useState(false);
-  const contactAddress = "0xF467F50A91F3C7294dF02b8E32DCd09c15d1DC04";
-  const contractABI = abi.abi;
+  const { contractABI, contractAddress, setTotalWaves } =
+    useContext(AppContext);
 
   const wave = async () => {
     try {
@@ -21,7 +21,7 @@ const ProfileSection = ({}: Props) => {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const wavePortalContract = new ethers.Contract(
-          contactAddress,
+          contractAddress,
           contractABI,
           signer
         );
@@ -37,6 +37,7 @@ const ProfileSection = ({}: Props) => {
         setMining(false);
 
         count = await wavePortalContract.getTotalWaves();
+        setTotalWaves(count.toNumber());
         console.log("Total waves ", count.toNumber());
       }
     } catch (error) {
